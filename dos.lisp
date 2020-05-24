@@ -31,7 +31,9 @@
 	(if (> i end)
 		'done;(+ 1 2);evalua esto
 		(
-			progn 
+			progn ;toma cualquier numero de expresiones
+			; las evalua en orde y devuelve el valor de la ultima
+
 			(format t "~a ~a ~%" i (* i i))
 			(show_squares2 (+ i 1) end)
 			)
@@ -42,7 +44,8 @@
 
 (defun our_length (lst)
 	(let ((len 0))
-		(dolist (obj lst)
+		(dolist (obj lst);itera a traves de los elem. de la lista
+			; 
 			(setf len (+ len 1))
 			)
 		len
@@ -53,12 +56,16 @@
 
 (print (our_length '(a b c d)))
 
-(
-	
-
+(defun suma_en_lista(lst)
+	(let ((len 0))
+		(dolist (obj lst);obj es una referencia al elemento i
+			;de la lista, como los iteradores en python
+			(setf len (+ len obj))
+			)
+		len
+		)
 	)
-
-
+(print (suma_en_lista '(1 2 3  4 5)))
 
 
 

@@ -1,3 +1,41 @@
+
+## instalacion en ubuntu:
+```bash
+sudo apt-get install clisp
+```
+
+para la quotacion se usa el apostrofe que viene en el teclado en la tecla de signo de interrogacion
+```lisp
+'(lista quotada)
+```
+
+## ejecucion
+
+para el entorno basta con ejecutar
+```
+$ clisp
+```
+y esto nos ingresa al entorno de clisp, al cometer un error o para salir se debe oprimir Ctrl+D
+pero como no es un entorno eficaz para el desarrollo es mejor editar codigo desde un IDE y ejecutarlo
+
+```shell
+$ clisp myfile.lisp
+```
+no imprimira nada a menos que usemos `(print "asd")` o `(format ...)` si lo ejecutamos de esta manera, pero nos permite escribir funciones mas largas, lisp se parece mucho a python 
+
+## configuracion en Sublime text
+
+crear un nuevo build en `Tools>Build System>Build System`:
+
+```js
+{
+	"shell_cmd": "clisp $file"
+}
+```
+y guardarlo, elegirlo para build de lisp en sublime y mostrara una salida de shell en ST igual que ejecutar `$ clisp myfile.lisp`
+
+
+
 ```lisp 
 'Asd
 ASD
