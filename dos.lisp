@@ -41,7 +41,7 @@
 	)
 (nl)
 (print(show_squares2 1 5))
-
+;itearaciones 
 (defun our_length (lst)
 	(let ((len 0))
 		(dolist (obj lst);itera a traves de los elem. de la lista
@@ -66,6 +66,88 @@
 		)
 	)
 (print (suma_en_lista '(1 2 3  4 5)))
+
+
+; version iterativa
+(defun our_length_recursive (lst)
+	(if (null lst)
+		0
+		(+ (our_length_recursive (cdr lst)) 1)
+		)
+	)
+; pero no es tail-recursive asi que no es eficiente
+(print (our_length_recursive '(1 2 3 4)))
+
+
+
+; funciones
+; son de 1ra clase , 
+; function fucniona como quote, son operadores especiales
+; no tenemos que quotar el argumento
+(print (function +))
+
+
+; hasta aqui hemos manejado objetos que se muestran como son escritos
+; las funciones no son asi,
+; son codigo maquina y pueden tener cualquer representacion
+; el simbolo de funcion es #' igual que el de quote es '
+; sharp-quote
+(print #' +)
+; las funciones se pueden pasar como argumentos
+(print
+(apply #' + '(1 2 3 4.5)); apply aplica una funcion a una lista
+)
+
+; puede recibir cualquier numero de argumentos
+(print(apply #' + 1 2 '(3 4 5.5)))
+
+(print
+(funcall #' + 1 2 3 ))
+;lambdas
+; lambda es un simbolo para definir funciones
+(print
+(lambda (x) (+ x 100))
+)
+(print
+	(
+		(lambda (x) (+ x 100) );definimos la lambda
+		 2 ;la evaluamos con 2
+	);se necesita este parentesis para evaluarla
+
+)
+; defun le define un nombre a una funcion pero no es necesario
+; 
+(print
+	(
+		(lambda (x y z)
+			(+ x y)
+		)
+		2 3 5
+	)
+)
+; es equivalente, permite usar funciones sin nombrarlas
+(print
+	(funcall #' (lambda(x) (+ x 100))
+		10
+	)
+)
+; tipos, es como python
+
+(print(typep 27 'integer))
+
+
+
+(defun sum(n)
+	(let ((s 0))
+		(dotimes (i n s )
+			(incf s i)
+			)
+		)
+	)
+(print (sum 3))
+
+
+
 
 
 

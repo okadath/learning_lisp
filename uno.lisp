@@ -1,3 +1,8 @@
+(list '(+ 2 1) (+ 2 1))
+(cons 'a '(b c d))
+(cdr  '   (a b c))
+(listp '(a b c))
+
 (defun sum(n)
 	(let((s 0))
 		(dotimes (i n s)
@@ -7,11 +12,14 @@
 )
 ; (sum (1))
 
-(defun addn(n)
+(defun addn(n )
 	#'(lambda(x)
 		(+ x n)
 		)
 	)
+
+(print (addn  3 ))
+(format t "~%")
 ;recursion, verifica si obj esta en lst 
 (defun ourmem (obj lst)
   (if (null lst)
