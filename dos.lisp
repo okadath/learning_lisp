@@ -82,7 +82,7 @@
 
 ; funciones
 ; son de 1ra clase , 
-; function fucniona como quote, son operadores especiales
+; function fuciona como quote, son operadores especiales
 ; no tenemos que quotar el argumento
 (print (function +))
 
@@ -147,11 +147,160 @@
 (print (sum 3))
 
 
+; # ejercicios
+
+(cons 'a (cons 'b '(c) ))
+(cons 'a (cons 'b (cons 'c nil)))
+(cons 'a '(b c))
+
+(defun 4to (x)
+	(car(cdr(cdr(cdr x ))))
+	)
+(print (4to '(a b c d )))
+
+
+(defun mas_grande(a b)
+	(if(> a b)
+		(print a)
+		(print b)
+		)
+
+	)
+(mas_grande 5 5)
+
+(defun enigma (x)
+	(and 	(not (null x));siempre es nil
+		; and se detiene con nil entonces cancela y regresa nil
+				(or (null (car x))
+
+						(enigma (cdr x))
+				)
+	)
+)
+
+(defun mystery (x y)
+	(if (null y)
+		nil
+		(if (eql (car y) x);si la cabeza de y es x
+			0
+			(
+				let ((z (mystery x (cdr y))))
+				(print y)
+				(+ z 1);siempre es true
+			)
+		)
+	)
+)
+(print(mystery 3 '(1 2 1 1 2 3 1)))
+(print
+
+(car (car(cdr '(a (b c)d))))
+)
+(print(or 13 (/ 1 0)))
+
+(print (if #' list 1 nil))
+(nl)
+
+(defun es_lista( x)
+	(dolist (obj x)
+		(if (listp obj) 
+			(print obj) 
+			0
+
+			)
+	)
+ )
+(print (es_lista '(1 (1) ((2)) ) ) )
 
 
 
+(defun puntos_iter(x)
+	(
+		do( 
+				(i 0 (+ i 1))
+			)
+			(( >= i x) 'done)
+			(format t ".")
+	)
+
+)
+(nl)
+(puntos_iter 3)
+(defun puntos_recur(x)
+	(if (eq x 0)
+		0
+		(progn;con esto podemos hacer ifs :O
+			(puntos_recur (- x 1))
+			(format t ".")
+
+		)
+	)
+)
+(nl)
+(puntos_recur 4)
+
+(defun numero_veces_iter(  a x)
+	
+	(let ((countt 0)) 
+		(
+			dolist (obj x)
+			; (print obj)
+			(
+				if(eql  a obj)
+					(progn
+						(setf countt (+ countt 1))
+						; (print countt)
+					) 
+			)
+		)
+		countt
+	)
+)
+
+(print (numero_veces_iter 1 '(1 1 3 1 2 4 1)))
 
 
+(defun numero_veces_recur (x y)
+	(if (null y)
+		0 ;base de la recursion
+		(
+			let ((z (numero_veces_recur x (cdr y)))) 
+			(if (eq (car y )x)
+				(+ z 1) 
+				z
+			)
+		)
+	)
+)
+(nl)
+(print (numero_veces_recur 1 '(1 1 3 1 2 4 1)))
+
+
+(defun summit ( 1sst )
+
+	(setf x (remove nil 1sst))
+	; (print lsst)
+	(apply #' +  x)
+)
+(setf asd '( 55 () 1  3 () 1) )
+(print (summit  asd ))
+
+(defun summit2 (lst)
+	(
+		let ((x 0))
+		(progn
+			(dolist (ob lst)
+			(
+				if  (not (null ob))
+				(setf x (+ x ob))   
+				)
+			)
+		)x
+	)
+)
+(nl)
+(print "ultimo")
+(print (summit2  asd ))
 
 
 

@@ -200,6 +200,73 @@ T
 [11]> (or nil  nil)
 NIL
 
-and se detiene si hay un falso, or se detiene si hay un true
+
 
 ```
+and se detiene si hay un falso, or se detiene si hay un true
+
+con los ifs adentro solo se le pueden apsar expresiones a evaluar, no codigo normal, en todo caso se le pasan lambdas o funciones, esta extraño
+```lisp
+(defun mystery (x y)
+	(if (null y)
+		(...
+		)
+		; nil	;al parecer hay que pasarle funciones internamente
+		(
+			
+			let((x 0));aqui ya permite mas codigo
+			(+ x 1)
+		)
+
+		
+	)
+)
+```
+```lisp
+(defun mystery (x y)
+	(if (null y)
+		(...
+		)
+		(
+			(lambda(x)
+			 	(print(+ x y))
+			 	(- x y)
+			)
+			1
+		)
+
+		
+	)
+)
+```
+si forzosamente necesitamos ejecutar mas codigo hay que usar progn
+```lisp
+(defun puntos_recur(x)
+	(if (eq x 0)
+		0
+		(progn;con esto podemos hacer ifs :O
+			(puntos_recur (- x 1))
+			(format t ".")
+
+		)
+	)
+)
+```
+
+
+estructura de la asignacion let:
+```lisp
+(defun numero_veces(  a x)
+	
+	(let ((countt 0)) 
+		(
+			;... operaciones
+		)
+		countt;el valor de la ultima expresion es el que se devuelve  a let, podriamos quitar el count
+	)
+)
+```
+
+
+
+hay que tener cuidado con los nombres de las  variables por que cuando hay errores de asignacion al aprecer dentro de las funciones si ese nombre exisita anteriormente asignara ese valor (no deberia pasar por que se supone que sabes lo que haces pero podria dar dolores de cabeza en el testing)
