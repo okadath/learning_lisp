@@ -245,8 +245,41 @@ To see if a recursive function does what it's supposed to, all you have to ask i
 This is all we need to know. The secret to understanding recursion is a lot like the secret for dealing with parentheses. How do you see which parenthesis matches which? You don't have to. 
 How do you visualize all those invocations? You don't have to.
 
+## control 
 
+hay que tener cuidado al crear un let de no usar una variable en la defincion que estemos creando:
 
+```lisp
+( let ((x 2) (y (+ x 1))); mal, esa x se redefine usando  ( + x y)
+	(+ x y)
 
+	)
+```
+es equivalente a esta, la x ya no es una x externa
+```lisp
+((lambda (x y)
+	 (+ x y)
+	 ) 2 (+ x 1)
+)
+```
+si se necesita una variable definida por alguna otra en los parametros se usa let*
+```lisp
+( let * ((x 1) (y (+ x 1)))
+(+ x y)
+)
+
+```
+
+eso anida los lets:
+``` lisp 
+( let ((x 1))
+	( let ((y (+ x 1)))
+		(+ x y ) 
+	) 
+
+)
+
+```
+ traen nil por default
 
 
