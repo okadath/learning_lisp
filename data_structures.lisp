@@ -81,14 +81,97 @@
 
 (print (remove-duplicates "abracadabra"))
 
-; reduce toma una funcion de dos valore sy la evalia con muchos
+; reduce toma una funcion de dos valores y la evalua con muchos
 
 ; (reduce # ' fn ' ( a b c d)) 
 ; (fn (fn (fn ' a 'b) ' c ) 'd)
 
 (print (reduce #' intersection '(( b r a d s)( b a d) ( c a t))))
 
+(defstruct point x y)
+(setf p (make-point :x 0 :y 0))
+(print (point-x p))
+(setf (point-y p) 2)
+(print p)
+(print (point-p p))
+(print (typep p 'point))
 
+(defstruct polemic
+	(type
+		(progn 
+			(format t "que tipo sera?")
+			(read)
+			)
+		)
+	(effect nil)
+	)
+; (make-polemic);solo corre bien desde clisp
+(
+	defstruct	(point (:conc-name p);en ves de usar point usas p
+						; en las llamadas a funciones
+						(:print-function print-point))
+				(x 0)
+				(y 0)
+	)
+(defun print-point (p stream depth)
+	(format stream "#<~a, ~a>" (px p) (py p))
+	)
+(print
+(make-point)
+)
+(defstruct 	
+	(node (:print-function
+				(lambda (n s d)
+					(format s "#<~A ~a ~a >" (node-elt n)(node-r n) (node-l n) - )
+				)
+			)
+	)
+	elt (l nil) (r nil)
+)
+
+(print
+(make-node :elt 'a :l 2 :r 3 )
+)
+;aqui va el resto de arboles binarios de bsuqueda :v
+
+(print (setf ht (make-hash-table)))
+
+(print (gethash 'color ht))
+
+(setf (gethash 'color ht) 'red);asigna un valor a la clave color
+(print (gethash 'color ht));obtiene el valor
+
+
+(setf bugs (make-hash-table))
+;;push es una abreviacion de setf ????????
+(push "no toma keywords" (gethash #' member bugs))
+(print bugs)
+
+(setf fruit (make-hash-table))
+(setf (gethash  'apricot fruit)t)
+(print fruit)
+(print (gethash 'apricot fruit ))
+
+(remhash 'apricot fruit)
+(print fruit)
+(setf (gethash 'shape ht ) ' spher
+			(gethash 'size ht ) ' giant
+		)
+
+(maphash #' (lambda (k v)  
+							(format t " ~A =~a ~%" k v)
+		)ht
+
+)
+(print
+(make-hash-table :size 5)
+)
+;; podemos pasarle eq, equal, or equalp
+(setf writers (make-hash-table :test #'equal))
+
+(setf (gethash '(ralph waldo emerson) writers) t )
+
+(print writers)
 
 
 
