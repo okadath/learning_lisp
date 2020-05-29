@@ -283,3 +283,17 @@ eso anida los lets:
  traen nil por default
 
 
+### simbolos y variables 
+One potentially confusing thing about Lisp is that symbols are related to
+variables in two very different ways. When a symbol is the name of a special
+variable, the value of the variable is stored in a field within the symbol
+(Figure 8.1). The symbol-value function refers to that field, so we have a
+direct connection between a symbol and the value of the special variable it
+represents.
+With lexical variables, things are completely different. A symbol used
+as a lexical variable is just a placeholder. The compiler will translate it into
+a reference to a register or a location in memory. In the eventual compiled
+code, there will be no trace of the symbol (unless it is retained somewhere for
+use by the debugger). So of course there is no connection between symbols
+and the values of the lexical variables they represent; by the time there is a
+value, the symbol is gone.
