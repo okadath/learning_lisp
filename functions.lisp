@@ -158,36 +158,84 @@ max score))))
 '(1 2 3 4 5 6)))
 
 
+; scope
+
+; local variables - lexical scope
+; special variables - dinamic scope
+
+; Under lexical scope, a symbol refers to the variable that has that name in
+; the context where the symbol appears. Local variables have lexical scope by
+; default.
+; local
+( let ((x 10))
+	(defun foo ()
+		x
+	)
+)
+(print (let ((x 20)) (foo)))
+
+; en esta funcion x ya no es variable lexica
+; con el scope dinamico 
+(let ((x 20))
+	(
+		defun foo()
+		(declare (special x))
+		x
+		)
+	)
+
+(print
+	(let ((x 30))
+		(declare (special x))
+		(foo)
+		)
+	)
+(setf x 90)
+(print (foo))
+; el scope dinamico es como varibles locales,
+; se usa para setear valores temporalmente
+
+; puede imprimir en cualquier base :OOOOOO
+( let ( ( *print-base* 13))
+(princ 12))
+( let ( ( *print-base* 13))
+(princ 10))
 
 
 
+; compilacion
+; permite compilar las funciones(+ rapidas?)
+; la funcion sigue siendo exactamente igual excepto por este predicado
+(defun foo(x)
+	(+ x 1)
+	)
+(print (compiled-function-p #' foo))
+(compile 'foo)
+(print (compiled-function-p #' foo))
+
+; solo no le podemos pasar a compile funciones con distinto
+; contexto lexico, stamp o reset o let 
+; en esos casos se deben poner las funciones en archivos, compilarlas
+; y cargarlas, es mas por la implementacion, podria ser posible hacerlo
 
 
+; The usual way to compile Lisp code is not to compile functions individ-
+; ually, but to compile whole files with compile-f i l e . This function takes a
+; filename and creates a compiled version of the source file—typically with the
+; same base name but a different extension. When the compiled file is loaded,
+; compiled-f u n c t i o n - p should return true for all the functions defined in
+; the file
 
 
+; al compilar, regresa funciones compiladas
+
+(compile 'make-adder)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+(print (compiled-function-p (make-adder 2)))
+(setf add3 (make-adder 3))
+(print (funcall add3 2))
+(setf add27 (make-adder 27))
+(print (funcall add27 2))
+(print (compiled-function-p (make-adder 27))) 
 
